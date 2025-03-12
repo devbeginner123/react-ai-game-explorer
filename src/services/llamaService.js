@@ -35,9 +35,9 @@ export const generateGameRecommendation = async (prompt) => {
     const recommendation = data.results[0].generated_text.trim();
 
     const cleanRecommendation = recommendation
-      .replace(/\n/g, "") // Hilangkan newline
-      .replace(/\d+\.\s?/g, "") // Hilangkan numbering (1. , 2.)
-      .replace(/\s*,\s*/g, ","); // Bersihin spasi di antara koma
+      .replace(/\n/g, "") 
+      .replace(/\d+\.\s?/g, "") 
+      .replace(/\s*,\s*/g, ","); 
 
     return cleanRecommendation;
   } catch (error) {

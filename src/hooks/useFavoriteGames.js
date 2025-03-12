@@ -36,7 +36,7 @@ export const useFavoriteGames = () => {
           const userFavorites = userSnap.data().favoriteGames || [];
           setFavoriteGames(userFavorites);
           
-          // Fetch most favorite games across all users
+          
           await fetchMostFavoriteGames(userFavorites);
         }
         setLoading(false);
@@ -48,11 +48,11 @@ export const useFavoriteGames = () => {
 
     const fetchMostFavoriteGames = async (currentUserFavorites) => {
       try {
-        // Get all users collection
+        // Mengambil semua data user
         const usersRef = collection(firestore, 'users');
         const querySnapshot = await getDocs(usersRef);
         
-        // Count game occurrences across all users
+        // Menghitung jumlah favorit setiap game
         const gameCounts = {};
         querySnapshot.forEach((userDoc) => {
           const userData = userDoc.data();
@@ -62,13 +62,13 @@ export const useFavoriteGames = () => {
           });
         });
 
-        // Convert to array, sort, and get top 10
+        // Mengonversi object ke array dan mengurutkan berdasarkan jumlah favorit
         const popularityList = Object.entries(gameCounts)
           .map(([id, count]) => ({ id, count }))
           .sort((a, b) => b.count - a.count)
           .slice(0, 10);
 
-        // Filter out games already in user's favorites
+        // Mengambil game yang paling populer, tapi tidak dimiliki oleh user
         const currentUserFavoriteIds = new Set(
           currentUserFavorites.map(game => game.id)
         );
@@ -93,7 +93,7 @@ export const useFavoriteGames = () => {
     try {
       const userRef = doc(firestore, 'users', user.uid);
       
-      // Ensure game is not already in favorites
+      // Memastikan game belum ada di favorit
       await updateDoc(userRef, {
         favoriteGames: arrayUnion({
           id: game.id,
@@ -103,7 +103,7 @@ export const useFavoriteGames = () => {
         })
       });
 
-      // Update local state
+      // Memperbarui local state
       setFavoriteGames(prev => [...prev, {
         id: game.id,
         name: game.name,

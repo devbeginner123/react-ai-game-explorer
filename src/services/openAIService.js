@@ -1,4 +1,4 @@
-// src/services/llamaService.js
+
 const API_URL = "https://api.llama-api.com/chat/completions";
 const API_KEY = import.meta.env.VITE_LLAMA_API_KEY;
 

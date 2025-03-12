@@ -23,6 +23,7 @@ function App() {
   const { user, logout } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [activeTab, setActiveTab] = useState('popular');
+  const [resultSource, setResultSource] = useState('search'); 
 
   useEffect(() => {
     const fetchPopularGames = async () => {
@@ -40,14 +41,43 @@ function App() {
     fetchPopularGames();
   }, []);
 
+  // Handler untuk search bar
+  const handleSearchComplete = () => {
+    setResultSource('search');
+    setActiveTab('search');
+    setTimeout(() => {
+      const resultsElement = document.getElementById('results-section');
+      if (resultsElement) {
+        resultsElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  // Handler untuk recommendation
+  const handleRecommendationComplete = () => {
+    setResultSource('recommendation');
+    setActiveTab('search');
+    setTimeout(() => {
+      const resultsElement = document.getElementById('results-section');
+      if (resultsElement) {
+        resultsElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const renderContent = () => {
     switch(activeTab) {
       case 'popular':
         return <GameList title="Game Populer" games={games} />;
       case 'search':
-        return searchResults.length > 0 
-          ? <GameList title="Hasil Pencarian" games={searchResults} />
-          : <GameList title="Game Populer" games={games} />;
+        if (searchResults.length > 0) {
+          const title = resultSource === 'recommendation' 
+            ? "Hasil Rekomendasi"
+            : "Hasil Pencarian";
+          return <GameList title={title} games={searchResults} />;
+        } else {
+          return <GameList title="Game Populer" games={games} />;
+        }
       case 'favorite':
         return <FavoriteGames />;
       default:
@@ -104,7 +134,6 @@ function App() {
         <AuthModal onClose={() => setShowAuthModal(false)} />
       )}
       
-      {/* Section Rekomendasi Game dengan Background Image dan CTA */}
       <section 
         className="relative py-16 border-t border-b border-blue-700"
         style={{
@@ -121,7 +150,7 @@ function App() {
             Semakin detail deskripsimu, semakin akurat rekomendasinya!
           </p>
           <div className="max-w-2xl mx-auto bg-gray-900 bg-opacity-80 p-6 rounded-lg shadow-lg">
-            <RecommendationForm onSearchComplete={() => setActiveTab('search')} />
+            <RecommendationForm onSearchComplete={handleRecommendationComplete} />
           </div>
         </div>
       </section>
@@ -142,9 +171,9 @@ function App() {
         </div>
         
         <MostFavoriteGames />
-        <SearchBar onSearchComplete={() => setActiveTab('search')} />
+        <SearchBar onSearchComplete={handleSearchComplete} />
         
-        <div className="mt-8">
+        <div id="results-section" className="mt-8">
           {renderContent()}
         </div>
       </main>

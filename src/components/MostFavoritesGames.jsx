@@ -10,7 +10,7 @@ const MostFavoriteGames = () => {
   const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
-    // Set current date in format like "Apr 25 - May 1, 2025"
+    // mengatur tanggal sekarang hingga minggu depan
     const now = new Date();
     const nextWeek = new Date(now);
     nextWeek.setDate(now.getDate() + 7);
@@ -48,7 +48,7 @@ const MostFavoriteGames = () => {
 
   if (!user || popularGamesDetails.length === 0) return null;
 
-  // Calculate rows based on the number of games (5 per row)
+  // Menghitung jumlah game yang akan ditampilkan
   const firstRowGames = popularGamesDetails.slice(0, 5);
   const secondRowGames = popularGamesDetails.slice(5, 10);
   
@@ -57,7 +57,6 @@ const MostFavoriteGames = () => {
     
     return (
       <div key={game.id} className="col-span-1 relative pl-12">
-        {/* Position number with outline */}
         <div 
           className="absolute left-0 top-1/2 -translate-y-1/2 text-9xl font-bold text-black opacity-70 z-10"
           style={{
@@ -72,7 +71,7 @@ const MostFavoriteGames = () => {
           {position}
         </div>
         
-        {/* Game card - shifted to the right */}
+
         <div className="relative z-0 bg-black rounded-md overflow-hidden shadow-lg">
           <img 
             src={game.background_image || '/placeholder-game.jpg'} 
@@ -90,25 +89,25 @@ const MostFavoriteGames = () => {
   return (
     <div className="py-8 px-4  text-white">
       <div className="mx-auto max-w-6xl">
-        {/* Netflix Top 10 Header */}
+
         <div className="flex items-center justify-center mb-8">
           <div className="text-gray-700 font-bold text-4xl mr-4">GAME<span className="text-blue-600">GPT</span></div>
           <div className="text-red-900 text-4xl font-bold">TOP {popularGamesDetails.length}</div>
         </div>
         
-        {/* Games Grid - First Row */}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
           {firstRowGames.map((game, index) => renderGameItem(game, index))}
         </div>
         
-        {/* Games Grid - Second Row (only if there are more than 5 games) */}
+
         {secondRowGames.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
             {secondRowGames.map((game, index) => renderGameItem(game, index + 5))}
           </div>
         )}
         
-        {/* Bottom label */}
+
         <div className="text-center text-2xl font-bold">
           <span className="mr-2">GAMES</span>
           <span className="text-gray-400">{currentDate}</span>

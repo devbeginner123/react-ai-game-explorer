@@ -30,7 +30,6 @@ const GameCard = ({ game }) => {
 
   return (
     <div className="relative bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-      {/* Tombol Favorit */}
       {user && (
         <button 
           onClick={handleFavoriteToggle}
@@ -56,11 +55,8 @@ const GameCard = ({ game }) => {
       
       <div className="p-4">
         <h3 className="text-xl font-bold text-white mb-2">{game.name}</h3>
-        
-        {/* Sisa kode sebelumnya tetap sama */}
       </div>
 
-      {/* Modal Autentikasi */}
       {showAuthModal && (
         <AuthModal onClose={() => setShowAuthModal(false)} />
       )}

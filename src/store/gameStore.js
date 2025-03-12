@@ -1,4 +1,3 @@
-// src/store/gameStore.js
 import { create } from 'zustand';
 
 const useGameStore = create((set) => ({

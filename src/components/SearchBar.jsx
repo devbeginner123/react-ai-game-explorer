@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import useGameStore from '../store/gameStore';
 import { searchGames } from '../services/rawgService';
 
-// Tambahkan parameter props (atau destructuring untuk onSearchComplete)
 const SearchBar = ({ onSearchComplete }) => {
   const [query, setQuery] = useState('');
   const { setSearchResults, setLoading, setError } = useGameStore();
@@ -19,7 +18,7 @@ const SearchBar = ({ onSearchComplete }) => {
       const results = await searchGames(query);
       setSearchResults(results);
       
-      // Panggil onSearchComplete jika ada
+    
       if (onSearchComplete) {
         onSearchComplete();
       }
