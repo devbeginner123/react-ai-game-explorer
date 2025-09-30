@@ -86,7 +86,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-900 to-black text-white">
+    <div className="min-h-screen text-white bg-[radial-gradient(1200px_600px_at_10%_-10%,rgba(59,130,246,0.25),transparent),radial-gradient(800px_400px_at_90%_-10%,rgba(99,102,241,0.25),transparent),#0b1020]">
       <Header>
         <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full">
           {user ? (
@@ -134,35 +134,35 @@ function App() {
         <AuthModal onClose={() => setShowAuthModal(false)} />
       )}
       
-      <section 
-        className="relative py-16 border-t border-b border-blue-700"
-        style={{
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
-        }}
-      >
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Temukan Game Sempurna untuk Kamu</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-200">
-            Ceritakan preferensi game kamu dan biarkan AI kami merekomendasikan game yang sesuai dengan seleramu. 
-            Semakin detail deskripsimu, semakin akurat rekomendasinya!
-          </p>
-          <div className="max-w-2xl mx-auto bg-gray-900 bg-opacity-80 p-6 rounded-lg shadow-lg">
-            <RecommendationForm onSearchComplete={handleRecommendationComplete} />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
+          <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-blue-600/20 blur-3xl" />
+          <div className="absolute -top-16 right-0 h-56 w-56 rounded-full bg-indigo-500/20 blur-3xl" />
+        </div>
+        <div className="container mx-auto px-4 py-14 md:py-20 relative">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-300">Temukan Game Sempurna</span>
+              <span className="block text-white/90">dengan bantuan AI</span>
+            </h2>
+            <p className="text-lg md:text-xl mt-4 text-white/70">Ceritakan preferensi kamu, biarkan AI kami rekomendasikan judul terbaik untukmu.</p>
+          </div>
+          <div className="mt-8 md:mt-10 max-w-3xl mx-auto">
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-4 md:p-6 shadow-[0_10px_40px_-10px_rgba(30,64,175,0.4)]">
+              <RecommendationForm onSearchComplete={handleRecommendationComplete} />
+            </div>
           </div>
         </div>
       </section>
       
       <main className="container mx-auto px-4 py-8">
-        <div className="flex mb-6 space-x-4">
+        <div className="flex mb-6 gap-3">
           <button 
             onClick={() => setActiveTab('popular')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded ${
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md border ${
               activeTab === 'popular' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                ? 'border-blue-500/40 bg-blue-600 text-white shadow hover:bg-blue-500' 
+                : 'border-white/10 bg-white/5 text-white/70 hover:bg-white/10'
             }`}
           >
             <Gamepad size={20} />
@@ -178,9 +178,9 @@ function App() {
         </div>
       </main>
       
-      <footer className="bg-gray-900 border-t border-gray-800 py-6">
-        <div className="container mx-auto px-4 text-center text-gray-500">
-          <p>Game Recommendation AI &copy; {new Date().getFullYear()}</p>
+      <footer className="bg-white/5 backdrop-blur border-t border-white/10 py-6">
+        <div className="container mx-auto px-4 text-center text-white/60">
+          <p>Game Recommendation AI © {new Date().getFullYear()}</p>
           <p className="text-sm mt-2">Data disediakan oleh RAWG API</p>
         </div>
       </footer>

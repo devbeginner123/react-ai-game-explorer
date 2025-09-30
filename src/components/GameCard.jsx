@@ -29,7 +29,7 @@ const GameCard = ({ game }) => {
   };
 
   return (
-    <div className="relative bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
+    <div className="relative rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur shadow-[0_8px_30px_rgb(2,6,23,0.35)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_18px_60px_-15px_rgba(59,130,246,0.45)]">
       {user && (
         <button 
           onClick={handleFavoriteToggle}
@@ -54,7 +54,7 @@ const GameCard = ({ game }) => {
       />
       
       <div className="p-4">
-        <h3 className="text-xl font-bold text-white mb-2">{game.name}</h3>
+        <h3 className="text-lg font-semibold text-white mb-1 tracking-tight">{game.name}</h3>
       </div>
 
       {showAuthModal && (
